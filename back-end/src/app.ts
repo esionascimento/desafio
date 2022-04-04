@@ -1,5 +1,7 @@
 import express from 'express'
 import cors from 'cors'
+import indexRoutes from './routes'
+require('dotenv/config')
 
 class App {
     public express: express.Application
@@ -8,7 +10,7 @@ class App {
       this.express = express()
 
       this.middlewares()
-      this.database()
+      /* this.database() */
       this.routes()
     }
 
@@ -17,14 +19,30 @@ class App {
       this.express.use(cors())
     }
 
-    private database (): void {
-      console.log()
-    }
+    /* private async database () {
+      if (global.connection && global.connection.state !== 'disconnected') { return global.connection }
+
+      const connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_NAME,
+        password: process.env.DB_PASS
+      })
+      connection.connect(function (err) {
+        if (err) throw err
+        connection.query(`CREATE DATABASE ${process.env.DB_DATABASE}`, function (err) {
+          if (err) {
+            console.log('Database already created')
+          } else {
+            console.log('Database created')
+          }
+        })
+      })
+      global.connection = connection
+      return connection
+    } */
 
     private routes (): void {
-      this.express.get('/', (req, res) => {
-        return res.send('hello')
-      })
+      this.express.use(indexRoutes)
     }
 }
 

@@ -1,3 +1,8 @@
 import app from './app'
+import db from './config/database'
 
-app.listen(4000)
+require('dotenv/config')
+
+db.connect()
+
+app.listen(process.env.PORT)
