@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
-import ListUser from './components/ListUser'
+import ListUser from './components/ListAllUser/ListUser'
+import CreateUser from './components/CreateUser/CreateUser';
 const { Header, Content } = Layout;
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
     <Layout>
       <Content>
         <Header  />
-        <ListUser />
+        {/* <ListUser /> */}
+        <CreateUser />
       </Content>
     </Layout>
   );

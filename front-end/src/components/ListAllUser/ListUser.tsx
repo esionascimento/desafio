@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { List, Avatar, /* Skeleton, */ Divider } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { APIListAllUser } from '../services'
-import { User } from '../atoms/interface'
+import { APIListAllUser } from '../../services'
+import { User } from '../../atoms/interface'
 
 import 'antd/dist/antd.css';
 
