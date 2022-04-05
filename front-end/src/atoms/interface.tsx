@@ -7,3 +7,16 @@ export interface User {
     password: string;
     phone: string;
 }
+
+export interface Client {
+    cnpj: number;
+    fantasy_name: string;
+    social_reason: string;
+    cep: number;
+    address: string;
+    number: string;
+    complement: string;
+    district: string;
+    city: string;
+    uf: string;
+}
