@@ -12,8 +12,9 @@ export class ClientController {
     const result = await service.execute({
       cnpj, fantasy_name, social_reason, cep, address, number, complement, district, city, uf
     })
+    console.log('result :', result[0]["insertId"]);
 
-    res.send(result)
+    res.status(200).send(result)
   }
 
   async listAllClient (req: Request, res: Response) {
@@ -21,6 +22,6 @@ export class ClientController {
 
     const result = await service.execute()
 
-    res.send(result)
+    res.status(200).send(result)
   }
 }
