@@ -16,6 +16,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    camelcase: ['error', { allow: ['aa_bb'] }]
+    camelcase: ['error', { allow: ['aa_bb'] }],
+    '@typescript-eslint/camelcase': [' error ', { properties: ' never ' }]
   }
 }

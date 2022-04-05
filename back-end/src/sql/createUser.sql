@@ -1,0 +1,1 @@
+INSERT INTO User (id_client, first_name, last_name, phone, email, password) VALUES (?, ?, ?, ?, ?, ?)

@@ -1,21 +1,14 @@
 import db from '../config/database'
 import { GameRequest } from '../interface'
-import { QueryInsert } from '../config/mysql'
+import { Query } from '../config/mysql'
 import fs from 'fs'
 import path from 'path'
 
-export class CreateUserService {
-  async execute ({ id_client, first_name, last_name, phone, email, password }: GameRequest) {
-    const users = fs.readFileSync(path.join(__dirname, '../sql/createUser.sql')).toString()
-    const todo = [id_client, first_name, last_name, phone, email, password]
+export class ListAllUserService {
+  async execute () {
     const sqlQuery = 'SELECT * FROM User';
-    /* const aux = []
-    const p  = db.promise().query(sqlQuery)
-      .then((data)=>{ // promise and callback function
-      return data[0]
-    });
-    return p */
-    const p  = await QueryInsert(db, users, todo);
+
+    const p  = await Query(db, sqlQuery);
     return p
 
     /* console.log('aux :', aux); */

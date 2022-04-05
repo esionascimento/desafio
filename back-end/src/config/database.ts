@@ -13,7 +13,20 @@ const db = mysql.createConnection({
 
 db.connect(function (err) {
   if (err) console.log('error: ', err)
-  db.query('USE desafioo', function (err) {
+  db.query(`USE ${process.env.DB_DATABASE}`, function (err) {
+    const users = fs.readFileSync(path.join(__dirname, '../sql/createDB.sql')).toString()
+    db.query(users + ' ' +  process.env.DB_DATABASE, (err) => {
+      if (err) {
+        throw err
+      }
+      db.changeUser({
+        database: process.env.DB_DATABASE
+      }, (err) => {
+        if (err) {
+          console.log('Error in changing database', err)
+        }
+      })
+    })
     if (err) {
       const aux = async () => {
         const users = fs.readFileSync(path.join(__dirname, '../sql/db.sql')).toString()
@@ -22,25 +35,12 @@ db.connect(function (err) {
             throw err
           } else {
             console.log('Query run successfully')
-            console.log('Database created')
           }
-          db.changeUser({
-            database: process.env.DB_DATABASE
-          }, (err) => {
-            if (err) {
-              console.log('Error in changing database', err)
-            }
-          })
         })
       }
       aux()
     } else {
       console.log('Database already created')
-      db.query('SELECT * FROM user', function (error, results) {
-        if (error) { throw error }
-
-        console.log(results)
-      })
     }
   })
 })
