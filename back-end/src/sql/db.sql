@@ -2,10 +2,10 @@
 
 CREATE TABLE desafioo.Client(
     id_client INT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    cnpf INT(20),
+    cnpj INT(20) NOT NULL,
     fantasy_name VARCHAR(50) NOT NULL,
     social_reason VARCHAR(50) NOT NULL,
-    cep INT(20),
+    cep INT(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
     number VARCHAR(50) NOT NULL,
     complement VARCHAR(50) NOT NULL,

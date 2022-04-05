@@ -8,7 +8,7 @@ export type GameRequest = {
 };
 
 export type ClientInterface = {
-    cnpf: number;
+    cnpj: number;
     fantasy_name: string;
     social_reason: string;
     cep: number;

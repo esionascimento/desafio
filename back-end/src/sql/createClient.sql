@@ -1,1 +1,1 @@
-INSERT INTO Client (cnpf, fantasy_name, social_reason, cep, address, number, complement, district, city, uf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO Client (cnpj, fantasy_name, social_reason, cep, address, number, complement, district, city, uf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
