@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=desafioo
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./src/database:/app/api
+    networks: 
+     - network-back-end
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - network-back-end
+
+  web:
+    build: ./front-end
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    networks:
+      - network-back-end
+
+  api:
+    build: ./back-end
+    depends_on:
+      - web
+      - db
+      - adminer
+    ports:
+        - 4000:4000
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=desafioo
+      - PORT=4000
+      - WAIT_HOSTS=db:3306
+    networks: 
+     - network-back-end
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+networks:
+  network-back-end:
+    driver: bridge

@@ -1,48 +1,57 @@
-import mysql from 'mysql2'
-import fs from 'fs'
-import path from 'path'
+import mysql = require('mysql2')
+import path = require('path')
+import fs = require('fs')
 require('dotenv/config')
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  /* database: process.env.DB_DATABASE, */
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  /* database: process.env.MYSQL_DATABASE, */
   multipleStatements: true
 })
 
-db.connect(function (err) {
-  if (err) console.log('error: ', err)
-  db.query(`USE ${process.env.DB_DATABASE}`, function (err) {
-    const users = fs.readFileSync(path.join(__dirname, '../sql/createDB.sql')).toString()
-    db.query(users + ' ' +  process.env.DB_DATABASE, (err) => {
-      if (err) {
-        throw err
-      }
-      db.changeUser({
-        database: process.env.DB_DATABASE
-      }, (err) => {
-        if (err) {
-          console.log('Error in changing database', err)
-        }
-      })
-    })
-    if (err) {
-      const aux = async () => {
-        const users = fs.readFileSync(path.join(__dirname, '../sql/db.sql')).toString()
-        db.query(users, (err) => {
-          if (err) {
-            throw err
-          } else {
-            console.log('Query run successfully')
-          }
-        })
-      }
-      aux()
+const verifyTable = () => {
+  db.query(`SELECT * FROM User`, function (err) {
+    if (!err) {
+      console.log('=== Table already created ===')
     } else {
-      console.log('Database already created')
+      const users = fs.readFileSync(path.join(__dirname, '../sql/table.sql')).toString()
+      db.query(users, (err) => {
+        if (!err) console.log('=== Query run successfully ===')
+      })
     }
   })
+}
+
+db.connect(function (err) {
+  if (err) {
+    console.log("Error connection: ", err)
+  } 
+  console.log('Database Connect')
+
+  db.query(`USE ${process.env.MYSQL_DATABASE}`, function (err) {
+    if (!err) {
+      console.log('=== Database already created ===')
+      verifyTable()
+    } else {
+      const users = fs.readFileSync(path.join(__dirname, '../sql/createDB.sql')).toString()
+      db.query(users + ' ' +  process.env.MYSQL_DATABASE, (err) => {
+        if (err) {
+          console.log('=== Error create Database ===', err)
+        } else {
+          console.log("=== Database created successfully ===")
+          db.changeUser({database: process.env.MYSQL_DATABASE}, (err) => {
+            if (!err) {
+              console.log('=== Changing database ===')
+            }
+          })
+        }
+        verifyTable()
+      })
+    }
+  })
+
 })
 
 export default db

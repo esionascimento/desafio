@@ -1,4 +1,4 @@
-export type GameRequest = {
+export type UserInterface = {
     id_client: number;
     first_name: string;
     last_name:string;

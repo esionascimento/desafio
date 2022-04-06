@@ -1,29 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../../atoms/interface'
+import { User } from '../../atoms/interface';
 
 const initialState: User = {
-    email: "",
+    email: '',
     first_name: 0,
-    id_client: "",
-    id_user: "",
-    last_name: "",
-    password: "",
-    phone: ""
+    id_client: '',
+    id_user: '',
+    last_name: '',
+    password: '',
+    phone: '',
 };
 
-export const themeSlice = createSlice({
+export const userSlice = createSlice({
     name: 'client',
     initialState,
     reducers: {
-        setClient: (state, { payload }) => {
-            state = payload;
-        },
-        decrementClient: (state) => {
-            state = initialState;
-        },
+        setUser: (_state, { payload }) => payload,
+        decrementClient: (_state) => initialState,
     },
 });
 
-export const { setClient, decrementClient } = themeSlice.actions;
+export const { setUser, decrementClient } = userSlice.actions;
 
-export default themeSlice.reducer;
+export default userSlice.reducer;

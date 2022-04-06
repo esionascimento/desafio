@@ -1,10 +1,13 @@
-
 import { configureStore } from '@reduxjs/toolkit';
-import globalReducer from './global/global.store';
+import Index from './global/global.store';
+import Client from './global/client.store';
+import User from './global/user.store';
 
 export const store = configureStore({
     reducer: {
-        global: globalReducer,
+        clientStore: Client,
+        userStore: User,
+        globalStore: Index,
     },
 });
 

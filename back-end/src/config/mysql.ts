@@ -1,4 +1,4 @@
-import mysql from 'mysql2'
+import mysql = require('mysql2')
 
 function Query(connection: mysql.Connection, query: string) {
   return new Promise((resolve, reject) => {
@@ -12,12 +12,9 @@ function Query(connection: mysql.Connection, query: string) {
   })
 }
 
-function QueryInsert(connection: mysql.Connection, query: string, queryComplete) {
-    return connection.promise().query(query, queryComplete)
-      .then((data)=>{ // promise and callback function
-        return data
-      }
-    )
+async function QueryInsert(connection: mysql.Connection, query: string, queryComplete: (string | number)[]) {
+    const data = await connection.promise().query(query, queryComplete)
+  return data
 }
 
 export { Query, QueryInsert }

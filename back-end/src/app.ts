@@ -1,5 +1,5 @@
-import express from 'express'
-import cors from 'cors'
+import express = require('express')
+import cors = require('cors')
 import indexRoutes from './routes'
 require('dotenv/config')
 
@@ -23,13 +23,13 @@ class App {
       if (global.connection && global.connection.state !== 'disconnected') { return global.connection }
 
       const connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_NAME,
-        password: process.env.DB_PASS
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD
       })
       connection.connect(function (err) {
         if (err) throw err
-        connection.query(`CREATE DATABASE ${process.env.DB_DATABASE}`, function (err) {
+        connection.query(`CREATE DATABASE ${process.env.MYSQL_DATABASE}`, function (err) {
           if (err) {
             console.log('Database already created')
           } else {

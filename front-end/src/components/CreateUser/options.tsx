@@ -1,14 +1,16 @@
 export const OptionsSteps = [
     {
-      title: 'Client',
-      content: 'First-content',
+        title: 'Client',
+        content: 'First-content',
     },
     {
-      title: 'User',
-      content: 'Second-content',
+        title: 'User',
+        content: 'Second-content',
     },
     {
-      title: 'Confirm',
-      content: 'Last-content',
+        title: 'Confirm',
+        content: 'Last-content',
     },
-  ];
+];
+
+export const aux = console.log();
